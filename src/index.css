@@ -1,0 +1,151 @@
+/* src/index.css — Version responsive complète */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── BASE ─── */
+html, body, #root { height: 100%; }
+
+/* Empêche le zoom involontaire sur iOS lors du focus input */
+@media (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-thumb { background: rgba(11,26,58,0.2); border-radius: 9999px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ─── BUTTONS ─── */
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-150 active:scale-95 select-none;
+    /* Touch-friendly minimum 44px height */
+    min-height: 44px;
+  }
+  .btn-primary { @apply bg-primary text-white shadow-card; }
+  .btn-primary:hover { background: #2F8F6B; }
+  .btn-accent { @apply bg-primary text-white shadow-card; }
+  .btn-accent:hover { background: #2F8F6B; }
+  .btn-ghost { @apply bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20; }
+  .btn-danger { @apply bg-red-600 text-white hover:bg-red-500 shadow-card; }
+  .btn-white { @apply bg-white text-primary border border-gray-200 hover:bg-surface shadow-card; }
+  .btn-icon {
+    @apply p-3 rounded-xl transition-all duration-150 active:scale-95 flex items-center justify-center;
+    min-width: 44px; min-height: 44px;
+  }
+
+  /* ─── INPUTS ─── */
+  .input {
+    @apply w-full rounded-xl bg-white border border-gray-200 px-4 py-3
+           text-primary placeholder:text-gray-400 text-sm
+           focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40
+           transition-all duration-150;
+    min-height: 48px;
+  }
+  .input-dark {
+    @apply w-full rounded-xl bg-white/10 border border-white/20 px-4 py-3
+           text-white placeholder:text-white/50 text-sm
+           focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-white/40
+           transition-all duration-150;
+    min-height: 48px;
+  }
+
+  /* ─── CARDS ─── */
+  .card { @apply bg-white rounded-2xl shadow-card border border-gray-100; }
+  .card-dark { @apply bg-primary/90 rounded-2xl border border-white/10; }
+
+  /* ─── MEETING CONTROLS ─── */
+  .ctrl-btn {
+    @apply flex flex-col items-center gap-1 p-3 rounded-2xl transition-all duration-150
+           text-white hover:bg-white/10 active:scale-95 select-none cursor-pointer;
+  }
+  .ctrl-btn-active  { @apply bg-white/20; }
+  .ctrl-btn-danger  { @apply bg-red-500 hover:bg-red-600; }
+  .ctrl-btn-end     { @apply bg-red-500 hover:bg-red-600 px-6; }
+
+  /* ─── BADGE ─── */
+  .badge { @apply inline-flex items-center justify-center text-xs font-bold rounded-full; }
+}
+
+/* ─── MEETING DARK SURFACES ─── */
+.meet-surface  { background: #0d1a3a; }
+.meet-sidebar  { background: #111e42; border-left: 1px solid rgba(255,255,255,0.08); }
+.meet-tile     { background: #182050; border: 1px solid rgba(255,255,255,0.08); }
+
+/* ─── SPEAKING RING ─── */
+.speaking-ring {
+  box-shadow: 0 0 0 3px #0b1a3a;
+  animation: speakPulse 1.5s ease infinite;
+}
+@keyframes speakPulse {
+  0%,100% { box-shadow: 0 0 0 3px #0b1a3a; }
+  50%      { box-shadow: 0 0 0 5px rgba(11,26,58,0.5); }
+}
+
+/* ─── HAND RAISE PULSE ─── */
+.hand-raised { animation: handPulse 1s ease infinite; }
+@keyframes handPulse {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* ─── SLIDE UP ANIMATION ─── */
+.animate-slide-up { animation: slideUp 0.25s ease; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE UTILITIES ─── */
+
+/* Grille réunion : sur mobile la vidéo prend tout l'espace */
+@media (max-width: 640px) {
+  .meet-surface {
+    overflow: hidden;
+  }
+  /* Tuiles vidéo plus petites sur mobile */
+  .meet-tile {
+    border-radius: 12px;
+  }
+}
+
+/* Tables responsives sur Security page */
+@media (max-width: 640px) {
+  .standards-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ─── SAFE AREA INSETS (iPhone notch / Dynamic Island) ─── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .controls-bar-safe {
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ─── HERO SECTIONS ─── */
+@media (max-width: 480px) {
+  .hero-title { font-size: 2rem !important; }
+  .hero-subtitle { font-size: 1rem !important; }
+}
+
+/* ─── PREVENT BODY SCROLL WHEN MODAL OPEN ─── */
+body.modal-open { overflow: hidden; }
+
+/* ─── TOUCH IMPROVEMENTS ─── */
+@media (hover: none) and (pointer: coarse) {
+  /* Bigger tap targets on touch devices */
+  button { min-height: 44px; }
+  a { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+/* ─── LANDSCAPE MOBILE ─── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .controls-bar-compact { padding-top: 4px !important; padding-bottom: 4px !important; }
+}
