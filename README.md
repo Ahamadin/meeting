@@ -15,8 +15,7 @@
 7. [API Backend — Endpoints](#7-api-backend--endpoints)
 8. [Installation et démarrage](#8-installation-et-démarrage)
 9. [Variables d'environnement](#9-variables-denvironnement)
-10. [Flux de données — Comment ça marche](#10-flux-de-données--comment-ça-marche)
-11. [Déploiement](#11-déploiement)
+10. [Déploiement](#11-déploiement)
 
 ---
 
@@ -107,87 +106,87 @@ JokkoMeet est une plateforme de visioconférence conçue pour le contexte séné
 jokkomeet/
 ├── meeting/                          ← Frontend React
 │   ├── src/
-│   │   ├── App.jsx                   # Routeur principal
-│   │   ├── main.jsx                  # Point d'entrée
-│   │   ├── config.js                 # Config API URL
+│   │   ├── App.jsx                   
+│   │   ├── main.jsx              
+│   │   ├── config.js               
 │   │   ├── routes/
-│   │   │   ├── Home.jsx              # Page d'accueil (créer/rejoindre)
-│   │   │   ├── Prejoin.jsx           # Écran pré-réunion (test cam/micro)
-│   │   │   ├── Meeting.jsx           # Page principale de réunion
-│   │   │   ├── Join.jsx              # Rejoindre via code
-│   │   │   ├── Login.jsx / Register  # Auth optionnelle
-│   │   │   ├── Schedule.jsx          # Planifier une réunion
-│   │   │   └── Security.jsx          # Page sécurité / E2EE
+│   │   │   ├── Home.jsx              
+│   │   │   ├── Prejoin.jsx           
+│   │   │   ├── Meeting.jsx          
+│   │   │   ├── Join.jsx            
+│   │   │   ├── Login.jsx / Register 
+│   │   │   ├── Schedule.jsx         
+│   │   │   └── Security.jsx          
 │   │   ├── features/
 │   │   │   ├── auth/
-│   │   │   │   └── AuthContext.jsx   # Contexte authentification
+│   │   │   │   └── AuthContext.jsx   
 │   │   │   └── meeting/
 │   │   │       ├── context/
-│   │   │       │   ├── MeetingContext.jsx    # État global réunion
-│   │   │       │   ├── SidePanelContext.jsx  # Panneau latéral
-│   │   │       │   └── ChatEventsContext.jsx # Événements chat
+│   │   │       │   ├── MeetingContext.jsx   
+│   │   │       │   ├── SidePanelContext.jsx  
+│   │   │       │   └── ChatEventsContext.jsx 
 │   │   │       ├── components/
-│   │   │       │   ├── VideoGrid.jsx         # Grille vidéo virtualisée
-│   │   │       │   ├── ParticipantTile.jsx   # Tuile vidéo participant
-│   │   │       │   ├── ControlsBar.jsx       # Barre de contrôles
-│   │   │       │   ├── TopBar.jsx            # Barre supérieure
-│   │   │       │   ├── SidePanel.jsx         # Panneau latéral
-│   │   │       │   ├── WaitingRoom.jsx       # Salle d'attente
-│   │   │       │   ├── WaitingRoomPanel.jsx  # Gestion salle d'attente (hôte)
-│   │   │       │   ├── ScreenShareView.jsx   # Partage d'écran
-│   │   │       │   ├── ReactionsOverlay.jsx  # Réactions emoji
-│   │   │       │   ├── PollPanel.jsx         # Sondages
-│   │   │       │   ├── FilesPanel.jsx        # Partage de fichiers
-│   │   │       │   └── StatsPanel.jsx        # Stats réseau temps réel
+│   │   │       │   ├── VideoGrid.jsx        
+│   │   │       │   ├── ParticipantTile.jsx  
+│   │   │       │   ├── ControlsBar.jsx       
+│   │   │       │   ├── TopBar.jsx           
+│   │   │       │   ├── SidePanel.jsx      
+│   │   │       │   ├── WaitingRoom.jsx      
+│   │   │       │   ├── WaitingRoomPanel.jsx 
+│   │   │       │   ├── ScreenShareView.jsx   
+│   │   │       │   ├── ReactionsOverlay.jsx  
+│   │   │       │   ├── PollPanel.jsx       
+│   │   │       │   ├── FilesPanel.jsx      
+│   │   │       │   └── StatsPanel.jsx        
 │   │   │       ├── panels/
-│   │   │       │   ├── ChatPanel.jsx         # Chat en réunion
-│   │   │       │   ├── RecordingPanel.jsx    # Contrôle enregistrement
-│   │   │       │   ├── ParticipantsPanel.jsx # Liste participants
-│   │   │       │   ├── AVSettingsPanel.jsx   # Paramètres A/V
-│   │   │       │   └── InvitePanel.jsx       # Invitation
+│   │   │       │   ├── ChatPanel.jsx      
+│   │   │       │   ├── RecordingPanel.jsx    
+│   │   │       │   ├── ParticipantsPanel.jsx 
+│   │   │       │   ├── AVSettingsPanel.jsx   
+│   │   │       │   └── InvitePanel.jsx  
 │   │   │       ├── hooks/
-│   │   │       │   └── useTimer.js           # Chronomètre réunion
+│   │   │       │   └── useTimer.js       
 │   │   │       └── utils/
-│   │   │           └── e2ee.js               # Chiffrement E2EE (AES-GCM 256)
+│   │   │           └── e2ee.js               
 │   │   ├── components/
-│   │   │   ├── chat/                         # Bulles messages (texte, image, audio, vidéo, fichier)
-│   │   │   ├── IncomingCallModal.jsx          # Modal appel entrant
-│   │   │   ├── ScheduleMeetingModal.jsx       # Modal planification
-│   │   │   └── ui/                           # Composants UI génériques
+│   │   │   ├── chat/                         
+│   │   │   ├── IncomingCallModal.jsx        
+│   │   │   ├── ScheduleMeetingModal.jsx    
+│   │   │   └── ui/                           
 │   │   ├── services/
-│   │   │   ├── matrix/                       # Intégration Matrix (chat décentralisé)
-│   │   │   ├── call/                         # Gestion appels LiveKit
-│   │   │   └── livekit-service.js            # Client LiveKit frontend
+│   │   │   ├── matrix/                       
+│   │   │   ├── call/                        
+│   │   │   └── livekit-service.js          
 │   │   ├── livekit/
-│   │   │   ├── api.js                        # Appels REST vers le backend
-│   │   │   ├── livekit.js                    # Connexion LiveKit
-│   │   │   └── rtc.js                        # Gestion WebRTC bas niveau
+│   │   │   ├── api.js                        
+│   │   │   ├── livekit.js                   
+│   │   │   └── rtc.js                        
 │   │   └── utils/
-│   │       ├── e2ee.js                       # Utilitaires E2EE
-│   │       ├── time.js                       # Formatage temps
-│   │       └── callState.js                  # État des appels
+│   │       ├── e2ee.js                     
+│   │       ├── time.js                       
+│   │       └── callState.js             
 │   ├── package.json
 │   ├── vite.config.js
 │   ├── tailwind.config.js
 │   └── .env.local
 │
 └── livekit-meet-backend/             ← Backend Node.js
-    ├── server.js                     # Démarrage serveur HTTPS
-    ├── app.js                        # Configuration Express
+    ├── server.js                     
+    ├── app.js                       
     ├── config/
-    │   ├── env.js                    # Chargement variables d'env
-    │   └── livekit.js                # Config LiveKit (URL, clés)
+    │   ├── env.js                    
+    │   └── livekit.js              
     ├── controllers/
-    │   ├── meet.controller.js        # Logique création/jonction réunion
-    │   └── recording.controller.js   # Logique démarrage/arrêt enregistrement
+    │   ├── meet.controller.js        
+    │   └── recording.controller.js   
     ├── middlewares/
-    │   └── authMeet.js               # Validation displayName + roomName
+    │   └── authMeet.js               
     ├── routes/
-    │   ├── meet.routes.js            # Routes /api/meet/*
-    │   └── recording.routes.js       # Routes /api/recording/*
+    │   ├── meet.routes.js         
+    │   └── recording.routes.js      
     ├── services/
-    │   ├── livekit.service.js        # Token JWT + gestion rooms LiveKit
-    │   └── recording.service.js      # Egress LiveKit → MinIO
+    │   ├── livekit.service.js       
+    │   └── recording.service.js     
     ├── package.json
     └── .env.example
 ```
@@ -404,59 +403,9 @@ ALLOWED_ORIGINS=http://localhost:5173,https://votre-domaine.com
 VITE_API_URL=http://localhost:4000
 VITE_LIVEKIT_URL=wss://livekit.ec2lt.sn
 ```
-
 ---
 
-## 10. Flux de données — Comment ça marche
-
-### Créer une réunion
-
-```
-Utilisateur         Frontend              Backend           LiveKit Server
-    │                   │                    │                    │
-    │── Saisit nom ────▶│                    │                    │
-    │                   │── POST /create ───▶│                    │
-    │                   │                    │── createRoom ─────▶│
-    │                   │                    │◀─ room créée ──────│
-    │                   │                    │── generateToken    │
-    │                   │◀── { token, room } ─│                    │
-    │                   │                    │                    │
-    │                   │── connect(token) ──────────────────────▶│
-    │◀── Réunion live ──│◀─────────────────── WebRTC stream ──────│
-```
-
-### Rejoindre avec salle d'attente
-
-```
-Participant         Frontend              Backend           LiveKit (Data Channel)
-    │                   │                    │                    │
-    │── Rejoint ────────▶│── POST /join ─────▶│                    │
-    │                   │◀── { token } ──────│                    │
-    │                   │── connect(token) ───────────────────────▶│
-    │                   │ (canPublish: false tant que pas admis)   │
-    │                   │                                          │
-    │                   │◀─── data msg "admit" (depuis hôte) ─────│
-    │                   │── active audio/vidéo                     │
-    │◀── Accès réunion ─│                                          │
-```
-
-### Enregistrement
-
-```
-Hôte                Frontend              Backend           LiveKit Egress        MinIO
- │                     │                    │                    │                  │
- │── Clic Enregistrer ▶│── POST /start ────▶│                    │                  │
- │                     │                    │── startEgress ────▶│                  │
- │                     │                    │                    │── encode MP4 ────▶│
- │                     │◀── { egressId } ───│                    │  stream continu   │
- │── Clic Arrêter ────▶│── POST /stop ─────▶│── stopEgress ─────▶│                  │
- │                     │                    │                    │── finalize MP4 ──▶│
- │                     │                    │                    │ /recordings/date/ │
-```
-
----
-
-## 11. Déploiement
+## 10. Déploiement
 
 ### Configuration SSL (HTTPS requis pour WebRTC)
 
